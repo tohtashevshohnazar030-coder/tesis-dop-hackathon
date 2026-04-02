@@ -1,0 +1,339 @@
+---
+description: Visual process map for VAN mode (Index/Entry Point)
+globs: van-mode-map.mdc
+alwaysApply: false
+---
+# VAN MODE: INITIALIZATION PROCESS MAP
+
+🚨 MANDATORY FIRST STEP: MEMORY BANK CREATION 🚨
+NO OPERATION CAN PROCEED WITHOUT MEMORY BANK STRUCTURE
+
+> **TL;DR:** This visual map defines the VAN mode process for project initialization, task analysis, and technical validation. It guides users through platform detection, file verification, complexity determination, and technical validation to ensure proper setup before implementation.
+
+## 🧭 VAN MODE PROCESS FLOW
+
+```mermaid
+graph TD
+    Start["START VAN MODE"] --> PlatformDetect["PLATFORM DETECTION"]
+    PlatformDetect --> DetectOS["Detect Operating System"]
+    DetectOS --> CheckPath["Check Path Separator Format"]
+    CheckPath --> AdaptCmds["Adapt Commands if Needed"]
+    AdaptCmds --> PlatformCP["⛔ PLATFORM CHECKPOINT"]
+    
+    %% Add Critical Memory Bank Checkpoint
+    PlatformCP --> MemoryBankCheck{"Memory Bank<br>Exists?"}
+    MemoryBankCheck -->|"No"| CreateMemoryBank["CREATE MEMORY BANK<br>[CRITICAL STEP]"]
+    MemoryBankCheck -->|"Yes"| BasicFileVerify["BASIC FILE VERIFICATION"]
+    CreateMemoryBank --> MemoryBankCP["⛔ MEMORY BANK VERIFICATION [REQUIRED]"]
+    MemoryBankCP --> BasicFileVerify
+    
+    %% Basic File Verification with checkpoint
+    BasicFileVerify --> BatchCheck["Batch Check Essential Components"]
+    BatchCheck --> BatchCreate["Batch Create Essential Structure"]
+    BatchCreate --> BasicFileCP["⛔ BASIC FILE CHECKPOINT"]
+    
+    %% Early Complexity Determination
+    BasicFileCP --> EarlyComplexity["EARLY COMPLEXITY DETERMINATION"]
+    EarlyComplexity --> AnalyzeTask["Analyze Task Requirements"]
+    AnalyzeTask --> EarlyLevelCheck{"Complexity Level?"}
+    
+    %% Level handling paths
+    EarlyLevelCheck -->|"Level 1"| ComplexityCP["⛔ COMPLEXITY CHECKPOINT"]
+    EarlyLevelCheck -->|"Level 2-4"| CRITICALGATE["🚫 CRITICAL GATE: FORCE MODE SWITCH"]
+    CRITICALGATE --> ForceExit["Exit to PLAN mode"]
+    
+    %% Level 1 continues normally
+    ComplexityCP --> InitSystem["INITIALIZE MEMORY BANK"]
+    InitSystem --> Complete1["LEVEL 1 INITIALIZATION COMPLETE"]
+    
+    %% For Level 2+ tasks after PLAN and CREATIVE modes
+    ForceExit -.-> OtherModes["PLAN → CREATIVE modes"]
+    OtherModes -.-> VANQA["VAN QA MODE"]
+    VANQA --> QAProcess["Technical Validation Process"]
+    QAProcess --> QACheck{"All Checks Pass?"}
+    QACheck -->|"Yes"| BUILD["To BUILD MODE"]
+    QACheck -->|"No"| FixIssues["Fix Technical Issues"]
+    FixIssues --> QAProcess
+    
+    %% Style nodes
+    style PlatformCP fill:#f55,stroke:#d44,color:white
+    style MemoryBankCP fill:#ff0000,stroke:#990000,color:white,stroke-width:3px
+    style MemoryBankCheck fill:#ff0000,stroke:#990000,color:white,stroke-width:3px
+    style CreateMemoryBank fill:#ff0000,stroke:#990000,color:white,stroke-width:3px
+    style BasicFileCP fill:#f55,stroke:#d44,color:white
+    style ComplexityCP fill:#f55,stroke:#d44,color:white
+    style CRITICALGATE fill:#ff0000,stroke:#990000,color:white,stroke-width:3px
+    style ForceExit fill:#ff0000,stroke:#990000,color:white,stroke-width:2px
+    style VANQA fill:#4da6ff,stroke:#0066cc,color:white,stroke-width:3px
+    style QAProcess fill:#4da6ff,stroke:#0066cc,color:white
+    style QACheck fill:#4da6ff,stroke:#0066cc,color:white
+    style FixIssues fill:#ff5555,stroke:#dd3333,color:white
+```
+
+## 🌐 PLATFORM DETECTION PROCESS
+
+```mermaid
+graph TD
+    PD["Platform Detection"] --> CheckOS["Detect Operating System"]
+    CheckOS --> Win["Windows"]
+    CheckOS --> Mac["macOS"]
+    CheckOS --> Lin["Linux"]
+    
+    Win & Mac & Lin --> Adapt["Adapt Commands<br>for Platform"]
+    
+    Win --> WinPath["Path: Backslash (\\)"]
+    Mac --> MacPath["Path: Forward Slash (/)"]
+    Lin --> LinPath["Path: Forward Slash (/)"]
+    
+    Win --> WinCmd["Command Adaptations:<br>dir, icacls, etc."]
+    Mac --> MacCmd["Command Adaptations:<br>ls, chmod, etc."]
+    Lin --> LinCmd["Command Adaptations:<br>ls, chmod, etc."]
+    
+    WinPath & MacPath & LinPath --> PathCP["Path Separator<br>Checkpoint"]
+    WinCmd & MacCmd & LinCmd --> CmdCP["Command<br>Checkpoint"]
+    
+    PathCP & CmdCP --> PlatformComplete["Platform Detection<br>Complete"]
+    
+    style PD fill:#4da6ff,stroke:#0066cc,color:white
+    style PlatformComplete fill:#10b981,stroke:#059669,color:white
+```
+
+## 📁 FILE VERIFICATION PROCESS
+
+```mermaid
+graph TD
+    FV["File Verification"] --> CheckFiles["Check Essential Files"]
+    CheckFiles --> CheckMB["Check Memory Bank<br>Structure"]
+    CheckMB --> MBExists{"Memory Bank<br>Exists?"}
+    
+    MBExists -->|"Yes"| VerifyMB["Verify Memory Bank<br>Contents"]
+    MBExists -->|"No"| CreateMB["Create Memory Bank<br>Structure"]
+    
+    CheckFiles --> CheckDocs["Check Documentation<br>Files"]
+    CheckDocs --> DocsExist{"Docs<br>Exist?"}
+    
+    DocsExist -->|"Yes"| VerifyDocs["Verify Documentation<br>Structure"]
+    DocsExist -->|"No"| CreateDocs["Create Documentation<br>Structure"]
+    
+    VerifyMB & CreateMB --> MBCP["Memory Bank<br>Checkpoint"]
+    VerifyDocs & CreateDocs --> DocsCP["Documentation<br>Checkpoint"]
+    
+    MBCP & DocsCP --> FileComplete["File Verification<br>Complete"]
+    
+    style FV fill:#4da6ff,stroke:#0066cc,color:white
+    style FileComplete fill:#10b981,stroke:#059669,color:white
+    style MBCP fill:#f6546a,stroke:#c30052,color:white
+    style DocsCP fill:#f6546a,stroke:#c30052,color:white
+```
+
+## 🧩 COMPLEXITY DETERMINATION PROCESS
+
+```mermaid
+graph TD
+    CD["Complexity<br>Determination"] --> AnalyzeTask["Analyze Task<br>Requirements"]
+    
+    AnalyzeTask --> CheckKeywords["Check Task<br>Keywords"]
+    CheckKeywords --> ScopeCheck["Assess<br>Scope Impact"]
+    ScopeCheck --> RiskCheck["Evaluate<br>Risk Level"]
+    RiskCheck --> EffortCheck["Estimate<br>Implementation Effort"]
+    
+    EffortCheck --> DetermineLevel{"Determine<br>Complexity Level"}
+    DetermineLevel -->|"Level 1"| L1["Level 1:<br>Quick Bug Fix"]
+    DetermineLevel -->|"Level 2"| L2["Level 2:<br>Simple Enhancement"]
+    DetermineLevel -->|"Level 3"| L3["Level 3:<br>Intermediate Feature"]
+    DetermineLevel -->|"Level 4"| L4["Level 4:<br>Complex System"]
+    
+    L1 --> CDComplete["Complexity Determination<br>Complete"]
+    L2 & L3 & L4 --> ModeSwitch["Force Mode Switch<br>to PLAN"]
+    
+    style CD fill:#4da6ff,stroke:#0066cc,color:white
+    style CDComplete fill:#10b981,stroke:#059669,color:white
+    style ModeSwitch fill:#ff0000,stroke:#990000,color:white
+    style DetermineLevel fill:#f6546a,stroke:#c30052,color:white
+```
+
+## 🔄 COMPLETE WORKFLOW WITH QA VALIDATION
+
+The full workflow includes technical validation before implementation:
+
+```mermaid
+flowchart LR
+    VAN1["VAN MODE 
+    (Initial Analysis)"] --> PLAN["PLAN MODE
+    (Task Planning)"]
+    PLAN --> CREATIVE["CREATIVE MODE
+    (Design Decisions)"]
+    CREATIVE --> VANQA["VAN QA MODE
+    (Technical Validation)"] 
+    VANQA --> BUILD["BUILD MODE
+    (Implementation)"]
+```
+
+## 🔍 TECHNICAL VALIDATION OVERVIEW
+
+The VAN QA technical validation process consists of four key validation points:
+
+```mermaid
+graph TD
+    VANQA["VAN QA MODE"] --> FourChecks["FOUR-POINT VALIDATION"]
+    
+    FourChecks --> DepCheck["1️⃣ DEPENDENCY VERIFICATION<br>Check all required packages"]
+    DepCheck --> ConfigCheck["2️⃣ CONFIGURATION VALIDATION<br>Verify format & compatibility"]
+    ConfigCheck --> EnvCheck["3️⃣ ENVIRONMENT VALIDATION<br>Check build environment"]
+    EnvCheck --> MinBuildCheck["4️⃣ MINIMAL BUILD TEST<br>Test core functionality"]
+    
+    MinBuildCheck --> ValidationResults{"All Checks<br>Passed?"}
+    ValidationResults -->|"Yes"| SuccessReport["GENERATE SUCCESS REPORT"]
+    ValidationResults -->|"No"| FailureReport["GENERATE FAILURE REPORT"]
+    
+    SuccessReport --> BUILD["Proceed to BUILD MODE"]
+    FailureReport --> FixIssues["Fix Technical Issues"]
+    FixIssues --> ReValidate["Re-validate"]
+    ReValidate --> ValidationResults
+    
+    style VANQA fill:#4da6ff,stroke:#0066cc,color:white
+    style FourChecks fill:#f6546a,stroke:#c30052,color:white
+    style ValidationResults fill:#f6546a,stroke:#c30052,color:white
+    style BUILD fill:#10b981,stroke:#059669,color:white
+    style FixIssues fill:#ff5555,stroke:#dd3333,color:white
+```
+
+## 📝 VALIDATION STATUS FORMAT
+
+The QA Validation step includes clear status indicators:
+
+```
+╔═════════════════ 🔍 QA VALIDATION STATUS ═════════════════╗
+│ ✓ Design Decisions   │ Verified as implementable          │
+│ ✓ Dependencies       │ All required packages installed    │
+│ ✓ Configurations     │ Format verified for platform       │
+│ ✓ Environment        │ Suitable for implementation        │
+╚════════════════════════════════════════════════════════════╝
+✅ VERIFIED - Clear to proceed to BUILD mode
+```
+
+## 🚨 MODE TRANSITION TRIGGERS
+
+### VAN to PLAN Transition
+For complexity levels 2-4:
+```
+🚫 LEVEL [2-4] TASK DETECTED
+Implementation in VAN mode is BLOCKED
+This task REQUIRES PLAN mode
+You MUST switch to PLAN mode for proper documentation and planning
+Type 'PLAN' to switch to planning mode
+```
+
+### CREATIVE to VAN QA Transition
+After completing the CREATIVE mode:
+```
+⏭️ NEXT MODE: VAN QA
+To validate technical requirements before implementation, please type 'VAN QA'
+```
+
+### VAN QA to BUILD Transition
+After successful validation:
+```
+✅ TECHNICAL VALIDATION COMPLETE
+All prerequisites verified successfully
+You may now proceed to BUILD mode
+Type 'BUILD' to begin implementation
+```
+
+## 🔒 BUILD MODE PREVENTION MECHANISM
+
+The system prevents moving to BUILD mode without passing QA validation:
+
+```mermaid
+graph TD
+    Start["User Types: BUILD"] --> CheckQA{"QA Validation<br>Completed?"}
+    CheckQA -->|"Yes and Passed"| AllowBuild["Allow BUILD Mode"]
+    CheckQA -->|"No or Failed"| BlockBuild["BLOCK BUILD MODE"]
+    BlockBuild --> Message["Display:<br>⚠️ QA VALIDATION REQUIRED"]
+    Message --> ReturnToVANQA["Prompt: Type VAN QA"]
+    
+    style CheckQA fill:#f6546a,stroke:#c30052,color:white
+    style BlockBuild fill:#ff0000,stroke:#990000,color:white,stroke-width:3px
+    style Message fill:#ff5555,stroke:#dd3333,color:white
+    style ReturnToVANQA fill:#4da6ff,stroke:#0066cc,color:white
+```
+
+## 🔄 QA COMMAND PRECEDENCE
+
+QA validation can be called at any point in the process flow, and takes immediate precedence over any other current steps, including forced mode switches:
+
+```mermaid
+graph TD
+    UserQA["User Types: QA"] --> HighPriority["⚠️ HIGH PRIORITY COMMAND"]
+    HighPriority --> CurrentTask["Pause Current Task/Process"]
+    CurrentTask --> LoadQA["Load QA Mode Map"]
+    LoadQA --> RunQA["Execute QA Validation Process"]
+    RunQA --> QAResults{"QA Results"}
+    
+    QAResults -->|"PASS"| ResumeFlow["Resume Prior Process Flow"]
+    QAResults -->|"FAIL"| FixIssues["Fix Identified Issues"]
+    FixIssues --> ReRunQA["Re-run QA Validation"]
+    ReRunQA --> QAResults
+    
+    style UserQA fill:#f8d486,stroke:#e8b84d,color:black
+    style HighPriority fill:#ff0000,stroke:#cc0000,color:white,stroke-width:3px
+    style LoadQA fill:#4da6ff,stroke:#0066cc,color:white
+    style RunQA fill:#4da6ff,stroke:#0066cc,color:white
+    style QAResults fill:#f6546a,stroke:#c30052,color:white
+```
+
+### QA Interruption Rules
+
+When a user types **QA** at any point:
+
+1. **The QA command MUST take immediate precedence** over any current operation, including the "FORCE MODE SWITCH" triggered by complexity assessment.
+2. The system MUST:
+   - Immediately load the QA mode map
+   - Execute the full QA validation process
+   - Address any failures before continuing
+3. **Required remediation steps take priority** over any pending mode switches or complexity rules
+4. After QA validation is complete and passes:
+   - Resume the previously determined process flow
+   - Continue with any required mode switches
+
+```
+⚠️ QA OVERRIDE ACTIVATED
+All other processes paused
+QA validation checks now running...
+Any issues found MUST be remediated before continuing with normal process flow
+```
+
+## 📋 CHECKPOINT VERIFICATION TEMPLATE
+
+Each major checkpoint in VAN mode uses this format:
+
+```
+✓ SECTION CHECKPOINT: [SECTION NAME]
+- Requirement 1? [YES/NO]
+- Requirement 2? [YES/NO]
+- Requirement 3? [YES/NO]
+
+→ If all YES: Ready for next section
+→ If any NO: Fix missing items before proceeding
+```
+
+## 🚀 VAN MODE ACTIVATION
+
+When the user types "VAN", respond with a confirmation and start the process:
+
+```
+User: VAN
+
+Response: OK VAN - Beginning Initialization Process
+```
+
+After completing CREATIVE mode, when the user types "VAN QA", respond:
+
+```
+User: VAN QA
+
+Response: OK VAN QA - Beginning Technical Validation
+```
+
+This ensures clear communication about which phase of VAN mode is active.
+

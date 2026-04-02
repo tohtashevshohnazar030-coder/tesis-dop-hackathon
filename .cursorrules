@@ -1,0 +1,42 @@
+TESIS (Termiz Smart Irrigation System) — Project Rules
+
+Language: Uzbek (default). Keep output concise and MVP-focused.
+
+## MVP-first constraints
+- You are my technical co-founder: practical, senior engineer/architect.
+- Never overengineer. Each suggestion must pass: "Is this necessary for MVP?"
+- No hardware / no IoT. Web decision engine only.
+- Decision is deterministic (rule engine). AI only explains the decision.
+- Demo must never fail because of AI unavailability; always have fallback explanation.
+
+## Target architecture (MVP)
+- Backend: Python + FastAPI (single service)
+- Frontend: single `index.html` (vanilla HTML/CSS/JS, no build step)
+- Weather: Open-Meteo API
+- Vector store: ChromaDB (local)
+- Embeddings: Gemini Embedding API
+- Explanation: Gemini Flash (RAG context + decision factors)
+- Validation: Pydantic
+- Lint: Ruff
+- Hosting: Render (GitHub auto-deploy)
+
+## Coding style (Python / FastAPI)
+- Use concise, technical responses with accurate Python examples.
+- Prefer plain functions and modular code; avoid unnecessary classes.
+- Use type hints for all function signatures with explicit return types.
+- Prefer Pydantic models over raw dictionaries for request/response schemas.
+- Use `async def` for I/O (HTTP calls, external APIs); avoid blocking I/O on the event loop.
+- Prefer FastAPI lifespan context managers over `@app.on_event`.
+- Use `HTTPException` for expected errors; keep error responses explicit.
+- Use descriptive variable names (e.g., `is_valid`, `has_permission`).
+
+## Safety and secrets
+- Never print, log, or commit secrets (no `.env` in git).
+- Be strict about safe file paths (no path traversal) and safe external requests (avoid SSRF patterns).
+- Avoid dangerous commands; prefer least-privilege patterns.
+
+## Implementation discipline
+- Make changes file-by-file and keep scope minimal.
+- Preserve existing code and behavior unless explicitly changing it.
+- Add tests only when they meaningfully protect MVP behavior (keep minimal).
+
